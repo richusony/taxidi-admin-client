@@ -26,7 +26,7 @@ const AdminSidePanel = () => {
         }
     ]
     return (
-        <aside className="max-h-screen w-[20%] pl-5 py-4 flex flex-col justify-between text-white">
+        <aside className="hidden max-h-screen md:w-[20%] pl-5 py-4 md:flex flex-col justify-between text-white">
             <div>
                 <Link to={"/"} className="text-xl font-bold">Taxidi</Link>
 
