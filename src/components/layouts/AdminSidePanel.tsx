@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import type { ReactElement } from "react";
 import { MdInfoOutline } from "react-icons/md";
+import { TiThListOutline } from "react-icons/ti";
 import { GoGear, GoSearch } from "react-icons/go";
 import { SlOptionsVertical } from "react-icons/sl";
 import { AiOutlineDashboard } from "react-icons/ai";
 import { TbBrandGoogleAnalytics } from "react-icons/tb";
+import { useIsSmallScreen } from "@/hooks/useIsSmallScreen";
 
 interface NavLinks {
     path: string;
@@ -12,7 +14,8 @@ interface NavLinks {
     pathIcon: ReactElement;
 };
 
-const AdminSidePanel = () => {
+const AdminSidePanel = ({ isSidePanelOpen } : { isSidePanelOpen: boolean }) => {
+    const isSmallScreen = useIsSmallScreen();
     const navLinks: NavLinks[] = [
         {
             path: "/dashboard",
@@ -23,10 +26,17 @@ const AdminSidePanel = () => {
             path: "/analytics",
             pathName: "Analytics",
             pathIcon: <TbBrandGoogleAnalytics />
+        },
+        {
+            path: "/host-applications",
+            pathName: "Host Requests",
+            pathIcon:  <TiThListOutline />
         }
-    ]
+    ];
+
+    const smallScreenStyle = `${isSidePanelOpen? "absolute" : "w-0 hidden"}`;
     return (
-        <aside className="hidden max-h-screen md:w-[20%] pl-5 py-4 md:flex flex-col justify-between text-white">
+        <aside className={`transition-all ease-linear absolute md:static min-h-screen lg:w-[20%] pl-5 py-4 flex flex-col justify-between bg-[#171717] text-white`}>
             <div>
                 <Link to={"/"} className="text-xl font-bold">Taxidi</Link>
 
