@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import type { ReactElement } from "react";
 import { MdInfoOutline } from "react-icons/md";
 import { TiThListOutline } from "react-icons/ti";
@@ -6,7 +6,7 @@ import { GoGear, GoSearch } from "react-icons/go";
 import { SlOptionsVertical } from "react-icons/sl";
 import { AiOutlineDashboard } from "react-icons/ai";
 import { TbBrandGoogleAnalytics } from "react-icons/tb";
-import { useIsSmallScreen } from "@/hooks/useIsSmallScreen";
+// import { useIsSmallScreen } from "@/hooks/useIsSmallScreen";
 
 interface NavLinks {
     path: string;
@@ -15,10 +15,11 @@ interface NavLinks {
 };
 
 const AdminSidePanel = ({ isSidePanelOpen } : { isSidePanelOpen: boolean }) => {
-    const isSmallScreen = useIsSmallScreen();
+    const navigate = useNavigate();
+    // const isSmallScreen = useIsSmallScreen();
     const navLinks: NavLinks[] = [
         {
-            path: "/dashboard",
+            path: "/",
             pathName: "Dashboard",
             pathIcon: <AiOutlineDashboard />
         },
@@ -34,7 +35,7 @@ const AdminSidePanel = ({ isSidePanelOpen } : { isSidePanelOpen: boolean }) => {
         }
     ];
 
-    const smallScreenStyle = `${isSidePanelOpen? "absolute" : "w-0 hidden"}`;
+    // const smallScreenStyle = `${isSidePanelOpen? "absolute" : "w-0 hidden"}`;
     return (
         <aside className={`transition-all ease-linear absolute md:static min-h-screen lg:w-[20%] pl-5 py-4 flex flex-col justify-between bg-[#171717] text-white`}>
             <div>
@@ -44,7 +45,7 @@ const AdminSidePanel = ({ isSidePanelOpen } : { isSidePanelOpen: boolean }) => {
                     <ul className="">
                         {
                             navLinks.map(link => (
-                                <li key={link.pathName} className="transition-all ease-linear w-full px-2 py-2 flex items-center gap-x-2 hover:bg-[#262626] rounded-md">{link.pathIcon}<Link className="cursor-default" to={link.path}>{link.pathName}</Link></li>
+                                <li role="button" onClick={() => navigate(link.path)} key={link.pathName} className="transition-all ease-linear w-full px-2 py-2 flex items-center gap-x-2 hover:bg-[#262626] rounded-md">{link.pathIcon}<Link className="cursor-default" to={link.path}>{link.pathName}</Link></li>
                             ))
                         }
                     </ul>
@@ -54,9 +55,9 @@ const AdminSidePanel = ({ isSidePanelOpen } : { isSidePanelOpen: boolean }) => {
             {/* Bottom Section */}
             <div className="">
                 <ul>
-                    <li className="transition-all ease-linear w-full px-2 py-2 flex items-center gap-x-2 hover:bg-[#262626] rounded-md"><GoGear /><Link className="cursor-default" to={"/settings"}>Settings</Link></li>
-                    <li className="transition-all ease-linear w-full px-2 py-2 flex items-center gap-x-2 hover:bg-[#262626] rounded-md"><MdInfoOutline /><Link className="cursor-default" to={"/help"}>Get Help</Link></li>
-                    <li className="transition-all ease-linear w-full px-2 py-2 flex items-center gap-x-2 hover:bg-[#262626] rounded-md"><GoSearch /><Link className="cursor-default" to={"/search"}>Search</Link></li>
+                    <li role="button" onClick={() => navigate("/settings")} className="transition-all ease-linear w-full px-2 py-2 flex items-center gap-x-2 hover:bg-[#262626] rounded-md"><GoGear /><Link className="cursor-default" to={"/settings"}>Settings</Link></li>
+                    <li role="button" onClick={() => navigate("/help")} className="transition-all ease-linear w-full px-2 py-2 flex items-center gap-x-2 hover:bg-[#262626] rounded-md"><MdInfoOutline /><Link className="cursor-default" to={"/help"}>Get Help</Link></li>
+                    <li role="button" onClick={() => navigate("/search")} className="transition-all ease-linear w-full px-2 py-2 flex items-center gap-x-2 hover:bg-[#262626] rounded-md"><GoSearch /><Link className="cursor-default" to={"/search"}>Search</Link></li>
                 </ul>
 
                 <div className="mt-4">
